@@ -42,3 +42,5 @@ yarn-error.log*
 # Cache directories
 .eslintcache
 .node_modules.cache
+
+# GitHub workflows (requires workflow scope to push).github/
