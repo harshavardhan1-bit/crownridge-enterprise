@@ -1,0 +1,63 @@
+import React, { useState } from 'react'
+
+export default function Workers() {
+  const [workers] = useState([
+    { id: 1, name: 'Rajesh Kumar', role: 'Site Engineer', department: 'Operations', status: 'Active', rating: 4.5 },
+    { id: 2, name: 'Priya Singh', role: 'QC Engineer', department: 'Quality', status: 'Active', rating: 4.8 },
+    { id: 3, name: 'Amit Patel', role: 'Supervisor', department: 'Operations', status: 'Active', rating: 4.2 },
+    { id: 4, name: 'Deepak Verma', role: 'Electrician', department: 'Technical', status: 'Inactive', rating: 3.9 },
+  ])
+
+  return (
+    <div>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem'}}>
+        <h1 style={{fontSize: '2rem', color: '#1f2937'}}>👥 Workers</h1>
+        <button style={styles.btn}>+ Add Worker</button>
+      </div>
+
+      <div style={styles.card}>
+        <table style={styles.table}>
+          <thead>
+            <tr style={styles.tableHeader}>
+              <th style={styles.th}>Name</th>
+              <th style={styles.th}>Role</th>
+              <th style={styles.th}>Department</th>
+              <th style={styles.th}>Status</th>
+              <th style={styles.th}>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {workers.map(w => (
+              <tr key={w.id} style={styles.tableRow}>
+                <td style={styles.td}><strong>{w.name}</strong></td>
+                <td style={styles.td}>{w.role}</td>
+                <td style={styles.td}>{w.department}</td>
+                <td style={styles.td}><Badge status={w.status}>{w.status}</Badge></td>
+                <td style={styles.td}>{'⭐'.repeat(Math.floor(w.rating))} {w.rating}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function Badge({ status }) {
+  const colors = {
+    'Active': { bg: '#dcfce7', color: '#166534' },
+    'Inactive': { bg: '#fee2e2', color: '#991b1b' },
+  }
+  const style = colors[status] || colors['Active']
+  return <span style={{background: style.bg, color: style.color, padding: '0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.85rem', fontWeight: '600'}}>{status}</span>
+}
+
+const styles = {
+  card: { background: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.07)' },
+  table: { width: '100%', borderCollapse: 'collapse' },
+  tableHeader: { background: '#f9fafb', borderBottom: '2px solid #e5e7eb' },
+  th: { padding: '1rem', textAlign: 'left', fontWeight: '600', color: '#374151' },
+  tableRow: { borderBottom: '1px solid #e5e7eb' },
+  td: { padding: '1rem', color: '#374151' },
+  btn: { padding: '0.75rem 1.5rem', background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' },
+}
